@@ -8,17 +8,32 @@ import {
   ButtonEnter,
 } from "./styles";
 
-import { useState } from "react";
-import { isloggedContext } from "../../hooks/isloggedContext";
+import { useContext } from "react";
 
 import image from "../../assets/images/image.jpg";
+import { UserContext } from "../../hooks/UserContext";
+import { api } from "../../services/api";
 
 export default function LoginLabel() {
-  const [name, setName] = useState<any>(false);
-  const [password, setPassword] = useState<any>(false);
+  const { setModalIsOpen, setIsLogged, setName, setPassword, name, password } =
+    useContext(UserContext);
 
-    const [logged] = isloggedContext(name, password)
-
+  async function sendNameAndPasswordAPI() {
+    if (name && password !== "") {
+      try {
+        const { data } = await api.post("/user/login", {
+          login: name,
+          password: password,
+        });
+        setIsLogged(true);
+        return data;
+      } catch (err) {
+        return alert("Usuário ou senha incorretos");
+      }
+    } else {
+      return alert("Favor preencher os campos");
+    }
+  }
   return (
     <Container>
       <Image src={image} />
@@ -26,17 +41,22 @@ export default function LoginLabel() {
         <TitleLogin>Entrar</TitleLogin>
         <InputUser
           placeholder="Digite seu usuário"
-          onChange={() => setName(true)}
+          onChange={(e) => setName(e.target.value)}
           type="text"
           required
         />
         <InputPassword
           placeholder="Digite sua senha"
-          onChange={() => setPassword(true)}
+          onChange={(e) => setPassword(e.target.value)}
           type="password"
           required
         />
-        <ButtonEnter onClick={() => ""}>Acessar a Plataforma</ButtonEnter>
+        <ButtonEnter onClick={sendNameAndPasswordAPI}>
+          Acessar a Plataforma
+        </ButtonEnter>
+        <ButtonEnter onClick={() => setModalIsOpen(true)}>
+          Cadastre-se
+        </ButtonEnter>
       </ContainerLogin>
     </Container>
   );

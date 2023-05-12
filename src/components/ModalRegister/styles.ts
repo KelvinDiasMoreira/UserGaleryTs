@@ -2,25 +2,26 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   display: flex;
-  background-color: #f8f8f8;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   height: 100vh;
-`;
-
-export const Image = styled.img`
-  flex: 1;
-  max-width: 55%;
-`;
-
+`
 export const ContainerLogin = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-left: 9rem;
-  gap: 1rem;
+  align-items: center;
+  background-color: #d6ecdf;
+  gap: 2rem;
+  width: 50%;
+  height: 50%;
+  border-radius: 1rem;
+
 `;
 
 export const TitleLogin = styled.h1`
-  font-size: 1.7rem;
+  font-size: 3rem;
   color: #393939;
 `;
 
@@ -44,6 +45,7 @@ export const InputUser = styled.input`
 `;
 
 export const InputPassword = styled.input`
+  width: 300px;
   color: #393939;
   cursor: text;
   outline: 0;
@@ -70,7 +72,8 @@ export const ButtonEnter = styled.button`
   border: none;
   cursor: pointer;
   background-color: #008ffb;
-  transition: 0.5s;
+  width: 300px;
+  transition: 1s;
   &:hover{
     background-color: #19274e;
   }

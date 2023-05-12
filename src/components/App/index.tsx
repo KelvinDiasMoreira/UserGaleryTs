@@ -1,14 +1,22 @@
+import { UserContext } from "../../hooks/UserContext";
 import LoginLabel from "../LoginLabel/index";
+import  MainPage  from "../MainPage";
+import { ModalRegister } from "../ModalRegister";
 
-
-import { useState } from "react";
+import { useContext } from "react";
 
 function App() {
-  // const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { isLogged, modalIsOpen, name, registerComplete } =
+    useContext(UserContext);
+  console.log(registerComplete);
 
-  return (
-    <LoginLabel />
-  )
+  if (isLogged || registerComplete) {
+    return <h1>Bem vindo {name} </h1>;
+  }
+  if (modalIsOpen) {
+    return <ModalRegister />;
+  }
+    return <MainPage />
 }
 
 export default App;
