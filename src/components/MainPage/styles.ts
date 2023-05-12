@@ -36,5 +36,21 @@ font-size: 1.5rem;
     transition: 0.5s;
     color: #F8F8F8;
 }
+`
 
+export const HeaderTitleChange = styled.h1`
+color: #737380;
+text-align: center;
+font-size: 2rem;
+`
+
+export const DivIconsChangeMode = styled.div`
+display: flex;
+background-color: red;
+`
+
+export const FirstIcon = styled.img`
+`
+
+export const SecondIcon = styled.img`
 `
