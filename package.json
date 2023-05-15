@@ -12,11 +12,13 @@
   "dependencies": {
     "axios": "^1.4.0",
     "react": "^18.2.0",
+    "react-carousel-minimal": "^1.4.1",
     "react-dom": "^18.2.0",
-    "styled-components": "^6.0.0-rc.1"
+    "styled-components": "^6.0.0-rc.1",
+    "vite-plugin-svgr": "^3.2.0"
   },
   "devDependencies": {
-    "@types/react": "^18.0.28",
+    "@types/react": "^18.2.6",
     "@types/react-dom": "^18.0.11",
     "@typescript-eslint/eslint-plugin": "^5.57.1",
     "@typescript-eslint/parser": "^5.57.1",

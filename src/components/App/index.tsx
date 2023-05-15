@@ -8,7 +8,6 @@ import { useContext } from "react";
 function App() {
   const { isLogged, modalIsOpen, name, registerComplete } =
     useContext(UserContext);
-  console.log(registerComplete);
 
   if (isLogged || registerComplete) {
     return <h1>Bem vindo {name} </h1>;

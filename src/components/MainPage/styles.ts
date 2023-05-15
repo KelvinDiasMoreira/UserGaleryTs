@@ -1,11 +1,15 @@
 import styled from "styled-components";
 
+interface Props {
+  isSelected: boolean,
+}
+
 export const Container = styled.div`
 height: 100vh;
 `
 export const TitleNavBar = styled.h1`
 font-size: 2rem;
-color: #737380;
+color: #A8A8B3;
 `
 
 export const Navbar = styled.nav`
@@ -22,9 +26,7 @@ border-radius: 0.3rem;
 cursor: pointer;
 transition: 0.5s;
 &:hover {
-    background-color: #737380;
-    transition: 0.5s;
-    color: #F8F8F8;
+    filter: brightness(0.8);
 }
 `
 
@@ -32,25 +34,40 @@ export const TitleDivCloseSession = styled.h2`
 text-align: center;
 color: #737380;
 font-size: 1.5rem;
-&:hover {
-    transition: 0.5s;
-    color: #F8F8F8;
-}
 `
-
+export const TitleDiv = styled.div`
+text-align: center;
+flex-grow: 1;
+justify-content: center;
+margin-left: 10rem;
+`
+export const ContainerTitle= styled.div`
+display: flex;
+`
 export const HeaderTitleChange = styled.h1`
 color: #737380;
 text-align: center;
 font-size: 2rem;
+
 `
 
 export const DivIconsChangeMode = styled.div`
-display: flex;
-background-color: red;
+margin-bottom: 3rem;
+margin-right: 2rem;
 `
 
-export const FirstIcon = styled.img`
-`
-
-export const SecondIcon = styled.img`
+export const ButtonImages = styled.button <Props>`
+width: 4rem;
+height: auto;
+cursor: pointer;
+transition: 0.5s;
+align-self: flex-end;
+${({isSelected }) => isSelected ? "filter: brightness(0.8)" : "filter: brightness(0);"}
+&:hover {
+    filter: brightness(0.8);
+  }
+  svg{
+    width: 2.2rem;
+    height: auto;
+  }
 `
