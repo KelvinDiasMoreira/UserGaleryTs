@@ -15,8 +15,15 @@ import { UserContext } from "../../hooks/UserContext";
 import { api } from "../../services/api";
 
 export default function LoginLabel() {
-  const { setModalIsOpen, setIsLogged, setName, setPassword, name, password } =
-    useContext(UserContext);
+  const {
+    setRegisterComponent,
+    setIsLogged,
+    setName,
+    setPassword,
+    setUser,
+    name,
+    password,
+  } = useContext(UserContext);
 
   async function sendNameAndPasswordAPI() {
     if (name && password !== "") {
@@ -26,7 +33,7 @@ export default function LoginLabel() {
           password: password,
         });
         setIsLogged(true);
-        return data;
+        setUser(data)
       } catch (err) {
         return alert("Usuário ou senha incorretos");
       }
@@ -34,6 +41,7 @@ export default function LoginLabel() {
       return alert("Favor preencher os campos");
     }
   }
+
   return (
     <Container>
       <Image src={image} />
@@ -54,7 +62,7 @@ export default function LoginLabel() {
         <ButtonEnter onClick={sendNameAndPasswordAPI}>
           Acessar a Plataforma
         </ButtonEnter>
-        <ButtonEnter onClick={() => setModalIsOpen(true)}>
+        <ButtonEnter onClick={() => setRegisterComponent(true)}>
           Cadastre-se
         </ButtonEnter>
       </ContainerLogin>

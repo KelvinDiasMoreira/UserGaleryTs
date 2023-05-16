@@ -10,7 +10,7 @@ import { useContext } from "react";
 import { UserContext } from "../../hooks/UserContext";
 import { api } from "../../services/api";
 
-export function ModalRegister() {
+export default function RegisterComponent() {
   const {
     setRegisterComplete,
     setNameToRegister,

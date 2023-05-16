@@ -71,7 +71,7 @@ export const ButtonEnter = styled.button`
   cursor: pointer;
   background-color: #008ffb;
   transition: 0.5s;
-  &:hover{
+  &:hover {
     background-color: #19274e;
   }
 `;

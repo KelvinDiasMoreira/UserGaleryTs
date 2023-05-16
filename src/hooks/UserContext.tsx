@@ -10,6 +10,12 @@ type UserContextProps = {
   children: ReactNode;
 };
 
+// interface User{
+//   login: string,
+//   name: string,
+//   token: string,
+// }
+
 type UserContextType = {
   isLogged: boolean;
   setIsLogged: Dispatch<SetStateAction<boolean>>;
@@ -19,8 +25,8 @@ type UserContextType = {
   password: string;
   setPassword: Dispatch<SetStateAction<string>>;
 
-  modalIsOpen: boolean;
-  setModalIsOpen: Dispatch<SetStateAction<boolean>>;
+  registerComponent: boolean;
+  setRegisterComponent: Dispatch<SetStateAction<boolean>>;
   
   nameToRegister: string;
   setNameToRegister: Dispatch<SetStateAction<string>>;
@@ -30,7 +36,12 @@ type UserContextType = {
   setLoginToRegister:  Dispatch<SetStateAction<string>>;
 
   registerComplete: boolean;
-  setRegisterComplete: Dispatch<SetStateAction<boolean>>
+  setRegisterComplete: Dispatch<SetStateAction<boolean>>;
+
+  user: any;
+  setUser: Dispatch<SetStateAction<any>>;
+
+
 };
 
 export const UserContext = createContext({} as UserContextType);
@@ -41,13 +52,16 @@ export function UserContextProvider({ children }: UserContextProps) {
   const [name, setName] = useState("")
   const [password, setPassword] = useState("");
 
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [registerComponent, setRegisterComponent] = useState(false);
 
   const [nameToRegister, setNameToRegister] = useState("");
   const [passwordToRegister, setPasswordToRegister] = useState("");
   const [loginToRegister, setLoginToRegister] = useState("");
 
   const [registerComplete, setRegisterComplete] = useState(false);
+
+  const [user, setUser] = useState();
+
 
   return (
     <UserContext.Provider
@@ -61,8 +75,8 @@ export function UserContextProvider({ children }: UserContextProps) {
         password,
         setPassword,
 
-        modalIsOpen,
-        setModalIsOpen,
+        registerComponent,
+        setRegisterComponent,
 
         nameToRegister,
         setNameToRegister,
@@ -75,6 +89,9 @@ export function UserContextProvider({ children }: UserContextProps) {
 
         registerComplete,
         setRegisterComplete,
+
+        user,
+        setUser,
       }}
     >
       {children}
