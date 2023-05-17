@@ -33,9 +33,10 @@ export default function LoginLabel() {
           password: password,
         });
         setIsLogged(true);
+        localStorage.setItem("token", data.token);
         setUser(data)
       } catch (err) {
-        return alert("Usuário ou senha incorretos");
+        return alert(err);
       }
     } else {
       return alert("Favor preencher os campos");

@@ -72,6 +72,6 @@ export const ButtonEnter = styled.button`
   background-color: #008ffb;
   transition: 0.5s;
   &:hover {
-    background-color: #19274e;
+    filter: brightness(0.8);
   }
 `;

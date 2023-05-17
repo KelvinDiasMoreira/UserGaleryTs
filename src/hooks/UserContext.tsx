@@ -40,7 +40,11 @@ type UserContextType = {
 
   user: any;
   setUser: Dispatch<SetStateAction<any>>;
+  userId: any;
+  setUserId: Dispatch<SetStateAction<any>>
 
+  modalImageIsOpen: boolean,
+  setModalImageIsOpen: Dispatch<SetStateAction<boolean>>;
 
 };
 
@@ -61,6 +65,9 @@ export function UserContextProvider({ children }: UserContextProps) {
   const [registerComplete, setRegisterComplete] = useState(false);
 
   const [user, setUser] = useState();
+  const [userId, setUserId] = useState();
+
+  const [modalImageIsOpen, setModalImageIsOpen] = useState(false);
 
 
   return (
@@ -92,6 +99,13 @@ export function UserContextProvider({ children }: UserContextProps) {
 
         user,
         setUser,
+
+        userId,
+        setUserId,
+
+        modalImageIsOpen,
+        setModalImageIsOpen,
+
       }}
     >
       {children}

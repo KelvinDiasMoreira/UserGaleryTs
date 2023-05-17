@@ -32,7 +32,6 @@ export default function RegisterComponent() {
         setRegisterComplete(true);
         return data;
       } catch (err) {
-        console.log(err);
         return alert("Usuário já cadastrado ou erro no banco ;/");
       }
     } else {
