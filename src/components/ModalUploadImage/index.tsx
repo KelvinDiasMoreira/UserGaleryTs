@@ -1,5 +1,7 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { UserContext } from "../../hooks/UserContext";
+import { api } from "../../services/api";
+import moment from "moment";
 
 import Modal from "react-modal";
 
@@ -24,20 +26,18 @@ import {
   ModalTitle,
   ContainerIconModal,
   ContainerButtomModal,
-  ButtonModalCancel,
   Tr,
   Td,
   DivImage1,
   DivImage2,
+  ButtonModalCancel,
 } from "./styles";
-import { api } from "../../services/api";
 interface Props {
   data: dataImage;
 }
 
 interface dataImage {
   createdAt: string;
-  data: string;
   extension: string;
   id: number;
   name: string;
@@ -45,8 +45,8 @@ interface dataImage {
 }
 
 export default function ModalUploadImage({ data }: Props) {
-  const { setModalImageIsOpen, modalImageIsOpen } = useContext(UserContext);
-  
+  const { setModalImageIsOpen, modalImageIsOpen, getImagesModal } = useContext(UserContext);
+
   function closeModalImage() {
     setModalImageIsOpen(false);
   }
@@ -55,15 +55,16 @@ export default function ModalUploadImage({ data }: Props) {
     setModalImageIsOpen(true);
   }
 
-//   function b64_to_utf8() {
-//     return decodeURIComponent(escape(window.atob(data.data)));
-//  }
+  function formatName() {
+    let string = data.name.indexOf("_");
+    return data.name.slice(0, string);
+  }
 
   async function removeImages() {
     try {
       await api.delete(`image/${data.id}`);
     } catch (err) {
-      console.log("Não deu erro ;>");
+      console.log("");
     }
   }
 
@@ -71,14 +72,19 @@ export default function ModalUploadImage({ data }: Props) {
     <>
       <Tr>
         <Td>{data.id}</Td>
-        <Td>{data.name}</Td>
+        <Td>{formatName()}</Td>
         <Td>{data.extension}</Td>
-        <Td>{data.vlSize}</Td>
-        <Td>{data.createdAt}</Td>
+        <Td>{data.vlSize * 1000} KB</Td>
+        <Td>{moment.utc(data.createdAt).format("DD/MM/YYYY")}</Td>
         <Td>
           <ContainerImage>
             <div></div>
-            <DivImage1 onClick={openModalImage}>
+            <DivImage1
+              onClick={() => {
+                openModalImage();
+                getImagesModal(data.id);
+              }}
+            >
               <EyeIcon />
             </DivImage1>
             <DivImage2 onClick={() => removeImages()}>
@@ -88,21 +94,7 @@ export default function ModalUploadImage({ data }: Props) {
           </ContainerImage>
         </Td>
       </Tr>
-      <Modal
-        isOpen={modalImageIsOpen}
-        onRequestClose={closeModalImage}
-        style={customStyles}
-      >
-        <ModalTitle>Visualizar imagem</ModalTitle>
-        <ContainerIconModal>
-        <img src={`data:image/png;base64, ${data.data}`} />
-        </ContainerIconModal>
-        <ContainerButtomModal>
-          <ButtonModalCancel onClick={closeModalImage}>
-            Fechar
-          </ButtonModalCancel>
-        </ContainerButtomModal>
-      </Modal>
+
     </>
   );
 }

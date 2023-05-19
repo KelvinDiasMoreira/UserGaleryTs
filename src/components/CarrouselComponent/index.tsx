@@ -1,6 +1,9 @@
 import { Carousel } from "react-carousel-minimal";
 import { Container } from "./styles";
 function App() {
+  
+
+
   const data = [
     {
       image:

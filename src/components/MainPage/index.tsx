@@ -66,8 +66,8 @@ export default function MainPage() {
       setModalIsOpen(false);
       setUserId(data.userId);
       return data;
-    } catch (err) {
-      return alert(err);
+    } catch (err : any) {
+      throw new Error(err)
     }
   }
 
