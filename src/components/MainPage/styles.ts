@@ -69,7 +69,7 @@ export const ButtonImages = styled.button<Props>`
   cursor: pointer;
   transition: 0.5s;
   align-self: flex-end;
-  ${({ isselected }) => isselected ? "background-color: grey;" : "background-color: ;"};
+  ${({ isselected }) => isselected ? "background-color: grey;" : "background: none;"};
   &:hover {
     filter: brightness(0.8);
   }

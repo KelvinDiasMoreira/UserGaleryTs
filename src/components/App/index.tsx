@@ -19,3 +19,11 @@ function App() {
 }
 
 export default App;
+
+{
+  /* <Routes>
+      <Route path="/" element={<LoginLabel />}/>
+      <Route path="/register" element={<RegisterComponent />}/>
+      <Route path="/mainpage" element={<MainPage />}/>
+    </Routes> */
+}

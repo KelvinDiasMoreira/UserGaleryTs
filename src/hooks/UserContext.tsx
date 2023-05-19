@@ -5,6 +5,7 @@ import {
   SetStateAction,
   useState,
 } from "react";
+import { api } from "../services/api";
 
 type UserContextProps = {
   children: ReactNode;
@@ -27,13 +28,13 @@ type UserContextType = {
 
   registerComponent: boolean;
   setRegisterComponent: Dispatch<SetStateAction<boolean>>;
-  
+
   nameToRegister: string;
   setNameToRegister: Dispatch<SetStateAction<string>>;
   passwordToRegister: string;
   setPasswordToRegister: Dispatch<SetStateAction<string>>;
   loginToRegister: string;
-  setLoginToRegister:  Dispatch<SetStateAction<string>>;
+  setLoginToRegister: Dispatch<SetStateAction<string>>;
 
   registerComplete: boolean;
   setRegisterComplete: Dispatch<SetStateAction<boolean>>;
@@ -41,11 +42,15 @@ type UserContextType = {
   user: any;
   setUser: Dispatch<SetStateAction<any>>;
   userId: any;
-  setUserId: Dispatch<SetStateAction<any>>
+  setUserId: Dispatch<SetStateAction<any>>;
 
-  modalImageIsOpen: boolean,
+  modalImageIsOpen: boolean;
   setModalImageIsOpen: Dispatch<SetStateAction<boolean>>;
 
+  image: any;
+  setImage: Dispatch<SetStateAction<any>>;
+
+  getImagesModal: (id: number) => void;
 };
 
 export const UserContext = createContext({} as UserContextType);
@@ -53,7 +58,7 @@ export const UserContext = createContext({} as UserContextType);
 export function UserContextProvider({ children }: UserContextProps) {
   const [isLogged, setIsLogged] = useState(false);
 
-  const [name, setName] = useState("")
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
   const [registerComponent, setRegisterComponent] = useState(false);
@@ -69,6 +74,18 @@ export function UserContextProvider({ children }: UserContextProps) {
 
   const [modalImageIsOpen, setModalImageIsOpen] = useState(false);
 
+  const [image, setImage] = useState<any>();
+
+  async function getImagesModal(id: number) {
+    try {
+      setImage(null);
+      const response = await api.get(`image/${id}`);
+      const imageData = response.data;
+      setImage(imageData);
+    } catch (err) {
+      throw new Error("Erro na api que pega as imagens.");
+    }
+  }
 
   return (
     <UserContext.Provider
@@ -106,6 +123,10 @@ export function UserContextProvider({ children }: UserContextProps) {
         modalImageIsOpen,
         setModalImageIsOpen,
 
+        image,
+        setImage,
+
+        getImagesModal,
       }}
     >
       {children}
