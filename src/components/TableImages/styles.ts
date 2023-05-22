@@ -31,8 +31,8 @@ export const ContainerIconModal = styled.div`
   justify-content: center;
   align-items: center;
   img {
-    width: 600px;
-    height: 270px;
+    max-width: 600px;
+    max-height: 275px;
     object-fit: cover;
   }
 `;

@@ -1,3 +1,14 @@
+import { useState, useContext } from "react";
+import { useDropzone } from "react-dropzone";
+import Modal from "react-modal";
+
+import TableImages from "../TableImages";
+import CarrouselComponent from "../CarrouselComponent";
+import { api } from "../../services/api";
+import { UserContext } from "../../hooks/UserContext";
+// import { Navigate } from "react-router-dom";
+
+
 import {
   Container,
   Navbar,
@@ -34,16 +45,11 @@ const customStyles = {
 import { ReactComponent as ImageIcon } from "../../assets/images/ImageIcon.svg";
 import { ReactComponent as MenuIcon } from "../../assets/images/MenuIcon.svg";
 import { ReactComponent as UploadIcon } from "../../assets/images/UploadIcon.svg";
-import { useState, useContext } from "react";
-import { useDropzone } from "react-dropzone";
-import Modal from "react-modal";
 
-import TableImages from "../TableImages";
-import CarrouselComponent from "../CarrouselComponent";
-import { api } from "../../services/api";
-import { UserContext } from "../../hooks/UserContext";
 
 export default function MainPage() {
+
+
   const [carrouselIsOpen, setCarrouselIsOpen] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const { setUserId } = useContext(UserContext);
@@ -66,7 +72,7 @@ export default function MainPage() {
       setModalIsOpen(false);
       setUserId(data.userId);
       return data;
-    } catch (err : any) {
+    } catch (err: any) {
       throw new Error(err)
     }
   }
@@ -82,12 +88,16 @@ export default function MainPage() {
     setModalIsOpen(false);
   }
 
+  function handleCloseSession() {
+    localStorage.clear();
+  }
+
   return (
     <Container>
       <Navbar>
         <TitleNavBar>GALLERY</TitleNavBar>
         <DivCloseSession>
-          <TitleDivCloseSession>Encerrar sessão</TitleDivCloseSession>
+          <TitleDivCloseSession onClick={handleCloseSession}>Encerrar sessão</TitleDivCloseSession>
         </DivCloseSession>
       </Navbar>
       <ContainerTitle>

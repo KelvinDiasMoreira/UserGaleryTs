@@ -1,5 +1,4 @@
-import { useState, useEffect, useContext } from "react";
-import { api } from "../../services/api";
+import { useContext } from "react";
 import ModalUploadImage from "../ModalUploadImage";
 import { UserContext } from "../../hooks/UserContext";
 
@@ -28,31 +27,12 @@ const customStyles = {
 };
 
 export default function TableImages() {
-  const [images, setImages] = useState<any[]>([]);
-  const { setModalImageIsOpen, modalImageIsOpen, image } =
-    useContext(UserContext);
+  const { setModalImageIsOpen, modalImageIsOpen, image, images } = useContext(UserContext);
 
   function closeModalImage() {
     setModalImageIsOpen(false);
   }
 
-
-  async function getImages() {
-    try {
-      const { data } = await api.get(`image/`);
-      setImages(data);
-    } catch (err) {
-      throw new Error("Erro na api que pega todas as imagens.");
-    }
-  }
-  useEffect(() => {
-    const timer = setInterval(() => {
-      getImages();
-    }, 1000);
-    return (
-      clearInterval(timer)
-    )
-  }, []);
 
   return (
     <Container>
@@ -66,7 +46,7 @@ export default function TableImages() {
             <Th>Data de Criação</Th>
             <Th>Ações</Th>
           </tr>
-          {images?.map((index) => {
+          {images?.map((index: any) => {
             return <ModalUploadImage key={index.id} data={index} />;
           })}
         </tbody>
@@ -95,3 +75,4 @@ export default function TableImages() {
     </Container>
   );
 }
+

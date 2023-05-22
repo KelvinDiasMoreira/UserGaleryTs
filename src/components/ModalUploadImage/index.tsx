@@ -1,36 +1,19 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext} from "react";
 import { UserContext } from "../../hooks/UserContext";
 import { api } from "../../services/api";
 import moment from "moment";
 
-import Modal from "react-modal";
 
 import { ReactComponent as DeleteIcon } from "../../assets/images/DeleteIcon.svg";
 import { ReactComponent as EyeIcon } from "../../assets/images/EyeIcon.svg";
 
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-    width: "60rem",
-    height: "auto",
-  },
-};
 
 import {
   ContainerImage,
-  ModalTitle,
-  ContainerIconModal,
-  ContainerButtomModal,
   Tr,
   Td,
   DivImage1,
   DivImage2,
-  ButtonModalCancel,
 } from "./styles";
 interface Props {
   data: dataImage;
@@ -45,11 +28,8 @@ interface dataImage {
 }
 
 export default function ModalUploadImage({ data }: Props) {
-  const { setModalImageIsOpen, modalImageIsOpen, getImagesModal } = useContext(UserContext);
+  const { setModalImageIsOpen, getImagesModal } = useContext(UserContext);
 
-  function closeModalImage() {
-    setModalImageIsOpen(false);
-  }
 
   function openModalImage() {
     setModalImageIsOpen(true);

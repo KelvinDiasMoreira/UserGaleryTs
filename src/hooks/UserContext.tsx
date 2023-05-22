@@ -6,6 +6,7 @@ import {
   useState,
 } from "react";
 import { api } from "../services/api";
+import { useEffect } from "react";
 
 type UserContextProps = {
   children: ReactNode;
@@ -51,6 +52,10 @@ type UserContextType = {
   setImage: Dispatch<SetStateAction<any>>;
 
   getImagesModal: (id: number) => void;
+
+  images: any;
+  setImages: Dispatch<SetStateAction<any>>;
+
 };
 
 export const UserContext = createContext({} as UserContextType);
@@ -76,6 +81,8 @@ export function UserContextProvider({ children }: UserContextProps) {
 
   const [image, setImage] = useState<any>();
 
+  const [images, setImages] = useState<any[]>([]);
+
   async function getImagesModal(id: number) {
     try {
       setImage(null);
@@ -86,6 +93,21 @@ export function UserContextProvider({ children }: UserContextProps) {
       throw new Error("Erro na api que pega as imagens.");
     }
   }
+
+  async function getImages() {
+    try {
+      const { data } = await api.get(`image/`);
+      setImages(data);
+    } catch (err) {
+      throw new Error("Erro na api que pega todas as imagens.");
+    }
+  }
+  useEffect(() => {
+     setInterval(() => {
+      getImages();
+    }, 1000);
+
+  }, []);
 
   return (
     <UserContext.Provider
@@ -127,6 +149,9 @@ export function UserContextProvider({ children }: UserContextProps) {
         setImage,
 
         getImagesModal,
+
+        images,
+        setImages,
       }}
     >
       {children}

@@ -12,11 +12,11 @@ import { UserContextProvider } from './hooks/UserContext.tsx'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-<!--     <BrowserRouter> -->
+{/* <!--     <BrowserRouter> --> */}
     <UserContextProvider>
     <GlobalStyles/>
     <App />
     </UserContextProvider>
-<!--     </BrowserRouter> -->
+{/* <!--     </BrowserRouter> --> */}
   </React.StrictMode>,
 )
