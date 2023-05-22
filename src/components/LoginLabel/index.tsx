@@ -8,34 +8,45 @@ import {
   ButtonEnter,
 } from "./styles";
 
-import { useContext } from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 
 import image from "../../assets/images/image.jpg";
 import { UserContext } from "../../hooks/UserContext";
 import { api } from "../../services/api";
 
 export default function LoginLabel() {
+  // const { isLogged, registerComponent, registerComplete } = useContext(UserContext);
   const {
     setRegisterComponent,
     setIsLogged,
-    setName,
-    setPassword,
     setUser,
-    name,
-    password,
   } = useContext(UserContext);
 
+  const [login, setLogin] = useState({
+    name: '',
+    password: ''
+  })
+  
+    function test(event: ChangeEvent<HTMLInputElement>) {
+      const {name, value} = event.target
+  
+      setLogin(prevState => ({
+        ...prevState,
+       [name]: value
+      }))
+    }
+
   async function sendNameAndPasswordAPI() {
-    if (name && password !== "") {
+    if (login.name && login.password.trim()) {
       try {
         const { data } = await api.post("/user/login", {
-          login: name,
-          password: password,
+          login: login.name,
+          password: login.password,
         });
         setIsLogged(true);
         localStorage.setItem("token", data.token);
         setUser(data)
-      } catch (err) {
+      } catch (err : any) {
         return alert(err);
       }
     } else {
@@ -43,20 +54,27 @@ export default function LoginLabel() {
     }
   }
 
+  useEffect(()=>{
+    console.log(login);
+  
+  }, [login])
+
   return (
     <Container>
       <Image src={image} />
       <ContainerLogin>
         <TitleLogin>Entrar</TitleLogin>
         <InputUser
+          name="name"
           placeholder="Digite seu usuário"
-          onChange={(e) => setName(e.target.value)}
+          onChange={test}
           type="text"
           required
         />
         <InputPassword
+          name="password"
           placeholder="Digite sua senha"
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={test}
           type="password"
           required
         />

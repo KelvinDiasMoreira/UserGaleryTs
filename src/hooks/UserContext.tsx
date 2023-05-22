@@ -22,11 +22,6 @@ type UserContextType = {
   isLogged: boolean;
   setIsLogged: Dispatch<SetStateAction<boolean>>;
 
-  name: string;
-  setName: Dispatch<SetStateAction<string>>;
-  password: string;
-  setPassword: Dispatch<SetStateAction<string>>;
-
   registerComponent: boolean;
   setRegisterComponent: Dispatch<SetStateAction<boolean>>;
 
@@ -63,9 +58,6 @@ export const UserContext = createContext({} as UserContextType);
 export function UserContextProvider({ children }: UserContextProps) {
   const [isLogged, setIsLogged] = useState(false);
 
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
-
   const [registerComponent, setRegisterComponent] = useState(false);
 
   const [nameToRegister, setNameToRegister] = useState("");
@@ -86,9 +78,8 @@ export function UserContextProvider({ children }: UserContextProps) {
   async function getImagesModal(id: number) {
     try {
       setImage(null);
-      const response = await api.get(`image/${id}`);
-      const imageData = response.data;
-      setImage(imageData);
+      const {data} = await api.get(`image/${id}`);
+      setImage(data);
     } catch (err) {
       throw new Error("Erro na api que pega as imagens.");
     }
@@ -114,12 +105,6 @@ export function UserContextProvider({ children }: UserContextProps) {
       value={{
         isLogged,
         setIsLogged,
-
-        name,
-        setName,
-
-        password,
-        setPassword,
 
         registerComponent,
         setRegisterComponent,
